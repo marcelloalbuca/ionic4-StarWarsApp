@@ -4,8 +4,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-button expand="full" (click)="openDetails()">Go to Details with function</ion-button>
-  <ion-button expand="full" routerLink="/tabs/films/42" routerDirection="forward">Go to Details with link</ion-button>
-  <ion-button expand="full" (click)="goToPlanets()">Switch to Planets</ion-button>
+<ion-content>
+  <ion-list>
+    <ion-item button detail lines="inset" *ngFor="let film of (films | async)?.results" (click)="openDetails(film)">
+      {{ film.title }}
+    </ion-item>
+  </ion-list>
 </ion-content>
