@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-films',
@@ -16,12 +17,12 @@ export class FilmsPage implements OnInit {
   constructor(
     private navController: NavController,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private api: ApiService
   ) {}
 
   ngOnInit() {
-    this.films = this.http.get('https://swapi.co/api/films/');
-
+    this.films = this.api.getFilms();
   }
 
   openDetails(film) {
@@ -29,9 +30,9 @@ export class FilmsPage implements OnInit {
     // But the standard Router is recommended.
     // this.navController.navigateForward(`/tabs/films/42`);
     //this.router.navigateByUrl(`/tabs/films/42`);
-      let split = film.url.split('/');
-      let filmId = split[split.length - 2];
-      this.router.navigateByUrl(`/tabs/films/${filmId}`);
+    let split = film.url.split('/');
+    let filmId = split[split.length - 2];
+    this.router.navigateByUrl(`/tabs/films/${filmId}`);
   }
 
   goToPlanets() {
